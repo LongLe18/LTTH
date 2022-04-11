@@ -1,0 +1,55 @@
+<nb-card>  
+    <nb-card-header>
+        Danh sách thiết bị
+      <!-- <button nbButton status="primary" (click)="openModalAddRule()">Thêm mới</button>-->
+    </nb-card-header>
+    
+    <nb-card-body>
+    
+        <div class="mat-elevation-z8">
+            <mat-form-field style="margin-left:30px;" >
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Tìm kiếm...">
+            </mat-form-field>
+            <table mat-table [dataSource]="dataSource">
+              
+              <ng-container matColumnDef="seqNo">
+                <th mat-header-cell *matHeaderCellDef>#</th>
+                <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
+              </ng-container>
+
+              <!-- Position Column -->
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Tên thiết bị </th>
+                <td mat-cell *matCellDef="let element"> {{element.TenTB}} </td>
+              </ng-container>
+          
+              <!-- Name Column -->
+              <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef> Loại thiết bị </th>
+                <td mat-cell *matCellDef="let element"> {{element.TenLoaiTB}} </td>
+              </ng-container>
+          
+              <ng-container matColumnDef="actions">
+                <th  mat-header-cell *matHeaderCellDef > Tùy chọn </th>
+                <td mat-cell *matCellDef="let element">
+                  <button nbButton status="primary" size="small" style="margin-left:5px;">
+                    <nb-icon icon="edit-outline" (click)="openModalEdit(element?.idThietBi);"></nb-icon>
+                  </button>
+                  <button nbButton status="danger" size="small" style="margin-left:5px;" (click)="onDelete(element?.idThietBi)">
+                    <nb-icon icon="trash-2-outline"></nb-icon>
+                  </button>
+                </td>
+              </ng-container>
+  
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[20, 30]" [length]="listLength"
+                            showFirstLastButtons  (page)="pageEvents($event)"
+                            aria-label="Select page of periodic elements">
+            </mat-paginator>
+        </div>
+    </nb-card-body>
+</nb-card>
+

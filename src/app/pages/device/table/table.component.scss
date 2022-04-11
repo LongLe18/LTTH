@@ -1,0 +1,80 @@
+@import '../../../@theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+
+@include nb-install-component() {
+
+  nb-card-body {
+    display: flex;
+    height: 100%;
+    padding: 0;
+  }
+
+  @include media-breakpoint-down(sm) {
+    nb-card-body {
+      flex-direction: column;
+    }
+  }
+
+  table {
+    table-layout: fixed;
+    width: 100%;
+    display: table;
+  }
+
+  .mat-column-seqNo {
+    text-align: center;
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 10% !important;
+    width: 10% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+  
+  .mat-column-name, .mat-column-type {
+    text-align: center;
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 37% !important;
+    width: 37% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  .margin-left {
+    margin-left: 10px;
+  }
+
+  .running {
+    padding: 5px;
+    background-color: #25ed25;
+  }
+
+  .stop {
+    padding: 5px;
+    background-color: red;
+  }
+
+  .mat-row:nth-child(even){
+    background-color: white;
+  }
+          
+  .mat-row:nth-child(odd){
+      background-color: #f4eaea;
+  }
+}

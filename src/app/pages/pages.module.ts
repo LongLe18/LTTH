@@ -4,8 +4,9 @@ import { NbMenuModule } from '@nebular/theme';
 import { ThemeModule } from '../@theme/theme.module';
 import { PagesComponent } from './pages.component';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { ECommerceModule } from './e-commerce/e-commerce.module';
+import { DeviceModule } from './device/device.module';
 import { PagesRoutingModule } from './pages-routing.module';
+import { ExperimentModule } from './experiment/experiment.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 
 @NgModule({
@@ -14,8 +15,9 @@ import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
     ThemeModule,
     NbMenuModule,
     DashboardModule,
-    ECommerceModule,
+    DeviceModule,
     MiscellaneousModule,
+    ExperimentModule,
   ],
   declarations: [
     PagesComponent,

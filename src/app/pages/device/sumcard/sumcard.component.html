@@ -1,0 +1,13 @@
+
+<nb-card matRipple (click)="on = !on" [ngClass]="{'off': !on}">
+    <div class="icon-container" >
+      <div class="icon status-primary">
+        <nb-icon icon="globe-outline" pack="eva" style="width:60%; height:60%;"></nb-icon>
+      </div>
+    </div>
+
+    <div class="details">
+      <div class="title h6">Tổng thiết bị</div>
+      <div class="status paragraph-2">{{listLength}}</div>
+    </div>
+</nb-card>
