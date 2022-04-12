@@ -4,7 +4,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Quản lý thiết bị',
     icon: 'eye-outline',
-    link: '/pages/device',
+    link: '/pages/dashboard',
     home: true,
   },
   {

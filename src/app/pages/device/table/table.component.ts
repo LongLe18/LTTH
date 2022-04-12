@@ -3,6 +3,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NbToastrService } from '@nebular/theme';
 import { DeviceData } from '../../../@core/data/device';
+import { MatDialog } from '@angular/material/dialog';
+import { AddComponent } from '../addmodal/add.component';
+import { EditComponent } from '../editmodal/edit.component';
 
 const ELEMENT_DATA = [{'TenTB': 'Máy chủ 1', 'TenLoaiTB': 'Máy chủ'}];
 
@@ -13,7 +16,8 @@ const ELEMENT_DATA = [{'TenTB': 'Máy chủ 1', 'TenLoaiTB': 'Máy chủ'}];
 })
 export class TableComponent implements OnDestroy {
   
-    constructor(private toastrService: NbToastrService, private service: DeviceData) {
+    constructor(private toastrService: NbToastrService, private service: DeviceData,
+      private dialog: MatDialog) {
         this.getData();
     }
 
@@ -29,6 +33,22 @@ export class TableComponent implements OnDestroy {
 
     ngAfterViewInit() {
         this.dataSource.paginator = this.paginator;
+    }
+
+    openModalAddRule() {
+      const dialogRef = this.dialog.open(AddComponent);
+      dialogRef.afterClosed().subscribe(result => {
+        if (result == true) this.getData();
+      });
+    }
+
+    openModalEdit(id) {
+      const dialogRef = this.dialog.open(EditComponent, { data: { id: id } });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result == true) {
+          this.getData();
+        }
+      });
     }
 
     pageEvents(event: any) {

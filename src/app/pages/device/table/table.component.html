@@ -1,7 +1,14 @@
 <nb-card>  
     <nb-card-header>
-        Danh sách thiết bị
-      <!-- <button nbButton status="primary" (click)="openModalAddRule()">Thêm mới</button>-->
+      <div class="row">
+        <div class="col-md-6">
+          Danh sách thiết bị
+        </div>
+        <div class="col-md-6">
+          <button nbButton status="primary" (click)="openModalAddRule()">Thêm mới</button>
+        </div>
+      </div>
+        
     </nb-card-header>
     
     <nb-card-body>
@@ -35,9 +42,9 @@
                   <button nbButton status="primary" size="small" style="margin-left:5px;">
                     <nb-icon icon="edit-outline" (click)="openModalEdit(element?.idThietBi);"></nb-icon>
                   </button>
-                  <button nbButton status="danger" size="small" style="margin-left:5px;" (click)="onDelete(element?.idThietBi)">
+                  <!-- <button nbButton status="danger" size="small" style="margin-left:5px;" (click)="onDelete(element?.idThietBi)">
                     <nb-icon icon="trash-2-outline"></nb-icon>
-                  </button>
+                  </button> -->
                 </td>
               </ng-container>
   

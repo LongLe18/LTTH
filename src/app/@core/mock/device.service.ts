@@ -19,8 +19,13 @@ export class DeviceService extends DeviceData {
         return Observable.throw(error.message || "Server error");
     }
 
+    getTypeDevice(): Observable<any> {
+        let url = this.BASE_URL + '/loaithietbi';
+        return this.http.get(url).catch(this.errorHandler);
+    }
+
     getDevices(id): Observable<any> {
-        let url = this.BASE_URL + '/chungloai?_id' + id;
+        let url = this.BASE_URL + '/chungloai?_id=' + id;
         return this.http.get(url).catch(this.errorHandler);
     }
 
@@ -30,12 +35,19 @@ export class DeviceService extends DeviceData {
     }
 
     getDevicesOverDate(): Observable<any> {
-        let url = this.BASE_URL + '/quahan_id';
+        let url = this.BASE_URL + '/quahan';
         return this.http.get(url).catch(this.errorHandler);
     }
 
     getExperiment(id): Observable<any> {
         let url = this.BASE_URL + '/nd_btn?_id=' + id;
         return this.http.get(url).catch(this.errorHandler);
+    }
+
+    addDevice(data: any): Observable<any> {
+        let url = this.BASE_URL + '/addTB';
+        const headers = { 'content-type': 'application/json'}  
+        const body = JSON.stringify(data);
+        return this.http.post(url, body, {'headers':headers}).catch(this.errorHandler);
     }
 }
