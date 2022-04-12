@@ -37,5 +37,18 @@ export class EditComponent {
   }
 
   submit() {
+    var data = {
+      "idTB": this.data.id,
+      "TenTB": this.name,
+      "TenLoaiTB": this.nametype,
+    };
+    this.service.EditDevice(data)
+    .subscribe(response => {
+      console.log(response)
+      this.toastrService.show('Sửa thông tin thiết bị thành công', 'Thành công', { status: 'success' });  
+      this.dialogRef.close(true);
+    },
+      error => this.toastrService.show('sửa thông tin thiết bị không thành công', 'Lỗi', { status: 'danger' })
+    )   
   }
 }

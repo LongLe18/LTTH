@@ -1,54 +1,43 @@
 import { Component, OnDestroy, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NbToastrService } from '@nebular/theme';
 import { DeviceData } from '../../../@core/data/device';
-import { AddComponent } from '../addmodal/add.component';
-import { EditComponent } from '../editmodal/edit.component';
 
-const ELEMENT_DATA = [{'tenMonHoc': 'Lập trình tích hợp','tenBaiTN': 'Máy chủ 1', 'tenGV': 'Máy chủ'}];
+const ELEMENT_DATA = [{'TenTB': 'Máy chủ 1', 'TenLoaiTB': 'Máy chủ', 'HanTra': '2022-04-08', 'idPhieuMuon': 1}];
+const ELEMENT_DATA2 = [{'TenTB': 'Máy chủ 1', 'TenLoaiTB': 'Máy chủ', 'HanTra': '2022-04-08', 'idPhieuMuon': 1}];
 
 @Component({
-  selector: 'ngx-table',
-  styleUrls: ['./table.component.scss'],
-  templateUrl: './table.component.html',
+  selector: 'ngx-table2',
+  styleUrls: ['./table2.component.scss'],
+  templateUrl: './table2.component.html',
 })
-export class TableComponent implements OnDestroy {
+export class Table2Component implements OnDestroy {
   
-    constructor(private toastrService: NbToastrService, private service: DeviceData,
-      private dialog: MatDialog) {
+    constructor(private toastrService: NbToastrService, private service: DeviceData) {
         this.getData();
+        this.getData2();
     }
 
     public show: Boolean = true;
-    displayedColumns: string[] = ['seqNo', 'subject', 'name', 'namegv', 'actions'];
+    displayedColumns: string[] = ['seqNo', 'name', 'type', 'date', 'number'];
     dataSource = new MatTableDataSource(ELEMENT_DATA);
+    dataSource2 = new MatTableDataSource(ELEMENT_DATA2);
 
     pageNo = 0;
     pageSize = 20;
     listLength; 
 
+    pageNo2 = 0;
+    pageSize2 = 20;
+    listLength2; 
+
     @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatPaginator) paginator2: MatPaginator;
 
     ngAfterViewInit() {
         this.dataSource.paginator = this.paginator;
-    }
-
-    openModalAddRule() {
-      const dialogRef = this.dialog.open(AddComponent);
-      dialogRef.afterClosed().subscribe(result => {
-        if (result == true) this.getData();
-      });
-    }
-
-    openModalEdit(id) {
-      const dialogRef = this.dialog.open(EditComponent, { data: { id: id } });
-      dialogRef.afterClosed().subscribe(result => {
-        if (result == true) {
-          this.getData();
-        }
-      });
+        this.dataSource2.paginator = this.paginator2;
     }
 
     pageEvents(event: any) {
@@ -70,32 +59,34 @@ export class TableComponent implements OnDestroy {
         // )
     }
 
+    pageEvents2(event: any) {
+      this.pageNo2 = event.pageIndex;
+      this.pageSize2 = event.pageSize;
+    }
+
+    getData2() {
+      this.service.getDevicesOverDate()
+        .subscribe((response: any) => {
+          if (response['data'].length > 0) {
+              this.dataSource2 = new MatTableDataSource(response['data']);
+          }
+          this.dataSource2.paginator = this.paginator2;
+        },
+          error => this.toastrService.show(`Lấy danh sách thiết bị không thành công: ${error}`, 'Lỗi', { status: 'danger' })
+        )
+  }
+
     getData() {
-        this.service.getExperiment(0)
+        this.service.getDevicesDate()
           .subscribe((response: any) => {
             if (response['data'].length > 0) {
                 this.dataSource = new MatTableDataSource(response['data']);
             }
             this.dataSource.paginator = this.paginator;
-            this.toastrService.show('Lấy danh sách Bài thí nghiệm thành công', 'Thành công', { status: 'success' })
+            this.toastrService.show('Lấy danh sách thiết bị thành công', 'Thành công', { status: 'success' })
           },
-            error => this.toastrService.show(`Lấy danh sách Bài thí nghiệm không thành công: ${error}`, 'Lỗi', { status: 'danger' })
+            error => this.toastrService.show(`Lấy danh sách thiết bị không thành công: ${error}`, 'Lỗi', { status: 'danger' })
           )
-    }
-
-    onDelete(id) {
-      if (window.confirm("Bạn có chắc chắn muốn bài thí nghiệm này không?")) {
-        this.service.deleteDK(id)
-        .subscribe(response => {
-          console.log('Deleted');
-          this.toastrService.show('Xóa thành công', 'Thành công', { status: 'success' });  
-          this.getData();        
-        },
-          error => this.toastrService.show('Xóa không thành công', 'Lỗi', { status: 'danger' })
-        )   
-      } else {
-        console.log('Canceled');
-      }
     }
 
     applyFilter(filterValue: string) {
@@ -104,7 +95,11 @@ export class TableComponent implements OnDestroy {
         this.dataSource.filter = filterValue;
     }
 
-
+    applyFilter2(filterValue: string) {
+      filterValue = filterValue.trim();
+      filterValue = filterValue.toLowerCase();
+      this.dataSource2.filter = filterValue;
+    }
     ngOnDestroy(): void {
         
     }

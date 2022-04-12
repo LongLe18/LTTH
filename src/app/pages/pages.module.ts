@@ -8,6 +8,7 @@ import { DeviceModule } from './device/device.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ExperimentModule } from './experiment/experiment.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
+import { ReportModule } from './report/report.module';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
     DeviceModule,
     MiscellaneousModule,
     ExperimentModule,
+    ReportModule,
   ],
   declarations: [
     PagesComponent,

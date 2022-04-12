@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DeviceComponent } from './device/device.component';
 import { ExperimentComponent  } from './experiment/experiment.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
+import { ReportComponent } from './report/report.component';
 
 const routes: Routes = [{
   path: '',
@@ -22,6 +23,10 @@ const routes: Routes = [{
     {
       path: 'experiment',
       component: ExperimentComponent,
+    },
+    {
+      path: 'report',
+      component: ReportComponent,
     },
     {
       path: 'miscellaneous',

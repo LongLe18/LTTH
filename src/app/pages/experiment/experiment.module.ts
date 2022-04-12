@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import {
   NbButtonModule,
   NbCardModule,
@@ -8,6 +9,7 @@ import {
   NbIconModule,
   NbSelectModule,
   NbListModule,
+  NbInputModule,
 } from '@nebular/theme';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -16,10 +18,16 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field'; 
 import { MatInputModule}  from '@angular/material/input';
 
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+
 import { ThemeModule } from '../../@theme/theme.module';
 import { TableComponent } from './table/table.component'
 import { ExperimentComponent } from './experiment.component';
 import { SumCardComponent } from './sumcard/sumcard.component';
+import { AddComponent } from './addmodal/add.component';
+import { EditComponent } from './editmodal/edit.component';
+
 @NgModule({
   imports: [
     ThemeModule,
@@ -37,11 +45,17 @@ import { SumCardComponent } from './sumcard/sumcard.component';
     MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
+    MatDialogModule,
+    MatButtonModule,
+    FormsModule,
+    NbInputModule,
   ],
   declarations: [
     TableComponent,
     ExperimentComponent,
     SumCardComponent,
+    AddComponent,
+    EditComponent,
   ],
   providers: [
   ],

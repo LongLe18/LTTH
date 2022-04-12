@@ -26,8 +26,8 @@
     text-align: center;
     word-wrap: break-word !important;
     white-space: unset !important;
-    flex: 0 0 5% !important;
-    width: 5% !important;
+    flex: 0 0 10% !important;
+    width: 10% !important;
     overflow-wrap: break-word;
     word-wrap: break-word;
   
@@ -39,12 +39,13 @@
     hyphens: auto;
   }
   
-  .mat-column-name, .mat-column-type, .mat-column-subject {
+  .mat-column-name, .mat-column-type, .mat-column-date,
+  .mat-column-number {
     text-align: center;
     word-wrap: break-word !important;
     white-space: unset !important;
-    flex: 0 0 30% !important;
-    width: 30% !important;
+    flex: 0 0 20% !important;
+    width: 20% !important;
     overflow-wrap: break-word;
     word-wrap: break-word;
   

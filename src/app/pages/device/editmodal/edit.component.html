@@ -5,13 +5,13 @@
             <div class="form-group row">
                 <label for="inputAddress" class="label col-sm-5 col-form-label">Tên thiết bị</label>
                 <div class="col-sm-7">
-                  <input type="text" nbInput fullWidth id="inputAddress" placeholder="Tên thiết bị" disabled value="{{name}}">
+                  <input type="text" nbInput fullWidth id="inputAddress" placeholder="Tên thiết bị" [(ngModel)]="name" [ngModelOptions]="{standalone: true}">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="inputStatus" class="label col-sm-5 col-form-label">Loại thiết bị</label>
                 <div class="col-sm-7">
-                    <nb-select [(selected)]="nametype" id="inputStatus">
+                    <nb-select [(selected)]="nametype" style="width: 100%">
                         <nb-option *ngFor="let item of listTypeDevice" value="{{item.TenLoaiTB}}">{{item.TenLoaiTB}}</nb-option>
                     </nb-select> 
                 </div>
