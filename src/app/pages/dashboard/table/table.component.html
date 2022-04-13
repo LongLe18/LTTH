@@ -1,6 +1,14 @@
 <nb-card>  
     <nb-card-header>
-        Danh sách thiết bị sắp tới hạn trả
+      <div class="row">
+        <div class="col-md-4">
+          Danh sách thiết bị sắp tới hạn trả
+        </div>
+        <div class="col-md-2">
+          <button nbButton status="success" (click)="openModalMuonThietBi()">Mượn thiết bị</button>
+        </div>
+      </div>
+        
       <!-- <button nbButton status="primary" (click)="openModalAddRule()">Thêm mới</button>-->
     </nb-card-header>
     
@@ -42,12 +50,9 @@
               <ng-container matColumnDef="actions">
                 <th  mat-header-cell *matHeaderCellDef > Tùy chọn </th>
                 <td mat-cell *matCellDef="let element">
-                  <!-- <button nbButton status="primary" size="small" style="margin-left:5px;">
-                    <nb-icon icon="edit-outline" (click)="openModalEdit(element?.idThietBi);"></nb-icon>
+                  <button nbButton status="danger" size="small" style="margin-left:5px;" (click)="onDelete(element?.idPhieuMuon, element?.idThietBi)">
+                    Trả thiết bị
                   </button>
-                  <button nbButton status="danger" size="small" style="margin-left:5px;" (click)="onDelete(element?.idThietBi)">
-                    <nb-icon icon="trash-2-outline"></nb-icon>
-                  </button> -->
                 </td>
               </ng-container>
   
@@ -107,11 +112,11 @@
             <ng-container matColumnDef="actions">
               <th  mat-header-cell *matHeaderCellDef > Tùy chọn </th>
               <td mat-cell *matCellDef="let element">
-                <button nbButton status="primary" size="small" style="margin-left:5px;">
+                <!-- <button nbButton status="primary" size="small" style="margin-left:5px;">
                   <nb-icon icon="edit-outline" (click)="openModalEdit(element?.idThietBi);"></nb-icon>
-                </button>
-                <button nbButton status="danger" size="small" style="margin-left:5px;" (click)="onDelete(element?.idThietBi)">
-                  <nb-icon icon="trash-2-outline"></nb-icon>
+                </button> -->
+                <button nbButton status="danger" size="small" style="margin-left:5px;" (click)="onDelete(element?.idPhieuMuon, element?.idThietBi)">
+                  Trả thiết bị
                 </button>
               </td>
             </ng-container>

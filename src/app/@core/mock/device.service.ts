@@ -87,5 +87,30 @@ export class DeviceService extends DeviceData {
         return this.http.delete(url).catch(this.errorHandler);
     }
 
+    reportByTime(dateStart: any, dateEnd: any): Observable<any> {
+        let url = this.BASE_URL + `/lietkethoigian?Date_BD='${dateStart}'&Date_KT='${dateEnd}'`;
+        return this.http.get(url).catch(this.errorHandler);
+    }
 
+    reportDeviceByTime(dateStart: any, dateEnd: any): Observable<any> {
+        let url = this.BASE_URL + `/lietketbphong?Date_BD='${dateStart}'&Date_KT='${dateEnd}'`;
+        return this.http.get(url).catch(this.errorHandler);
+    }
+
+    deleteSapToiHan(id: any, idDevice: any): Observable<any> {
+        let url = this.BASE_URL + `/muon_toihan?id=${id}&idDevice=${idDevice}`;
+        return this.http.delete(url).catch(this.errorHandler);
+    }
+
+    getListMuon(): Observable<any> {
+        let url = this.BASE_URL + '/muon';
+        return this.http.get(url).catch(this.errorHandler);
+    }
+
+    addListMuon(data): Observable<any> {
+        let url = this.BASE_URL + '/addmuon';
+        const headers = { 'content-type': 'application/json'}  
+        const body = JSON.stringify(data);
+        return this.http.post(url, body, {'headers':headers}).catch(this.errorHandler);
+    }
 }

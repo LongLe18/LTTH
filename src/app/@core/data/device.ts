@@ -25,5 +25,15 @@ export abstract class DeviceData {
     abstract addDK(data): Observable<any>;
 
     abstract deleteDK(id): Observable<any>;
+
+    abstract reportByTime(dateStart, dateEnd): Observable<any>;
+
+    abstract reportDeviceByTime(dateStart, dateEnd): Observable<any>;
+
+    abstract deleteSapToiHan(id, idDevice): Observable<any>;
+
+    abstract getListMuon(): Observable<any>;
+
+    abstract addListMuon(data): Observable<any>;
 }
   

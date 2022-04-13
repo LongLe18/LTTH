@@ -1,7 +1,21 @@
 <nb-card>  
     <nb-card-header>
-        Danh sách thiết bị sắp tới hạn trả
-      <!-- <button nbButton status="primary" (click)="openModalAddRule()">Thêm mới</button>-->
+      <div class="row">
+        <div class="col-md-4">
+          Danh sách lớp thí nghiệm theo thời gian
+        </div>
+        <div class="col-md-3">
+          <label for="inputStatus" class="label col-sm-2 col-form-label">Từ</label>
+          <input type="date"  [(ngModel)]="dateStart" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="col-md-3">
+          <label for="inputStatus" class="label col-sm-2 col-form-label">Đến</label>
+          <input type="date" [(ngModel)]="dateEnd" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="col-md-2">
+          <button nbButton status="primary" (click)="getData()">Báo cáo</button>
+        </div>
+      </div>
     </nb-card-header>
     
     <nb-card-body>
@@ -19,26 +33,31 @@
 
               <!-- Position Column -->
               <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef> Tên thiết bị </th>
-                <td mat-cell *matCellDef="let element"> {{element.tenTB}} </td>
+                <th mat-header-cell *matHeaderCellDef> Tên giáo viên </th>
+                <td mat-cell *matCellDef="let element"> {{element.TenGV}} </td>
               </ng-container>
           
               <!-- Name Column -->
-              <ng-container matColumnDef="type">
-                <th mat-header-cell *matHeaderCellDef> Loại thiết bị </th>
-                <td mat-cell *matCellDef="let element"> {{element.TenLoaiTB}} </td>
+              <ng-container matColumnDef="nameclass">
+                <th mat-header-cell *matHeaderCellDef> Tên lớp </th>
+                <td mat-cell *matCellDef="let element"> {{element.TenLop}} </td>
               </ng-container>
               
               <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef> Hạn trả </th>
-                <td mat-cell *matCellDef="let element"> {{element.HanTra}} </td>
+                <th mat-header-cell *matHeaderCellDef> Ngày đăng ký </th>
+                <td mat-cell *matCellDef="let element"> {{element.Ngay}} </td>
               </ng-container>
 
-              <ng-container matColumnDef="number">
-                <th mat-header-cell *matHeaderCellDef> Số phiếu mượn </th>
-                <td mat-cell *matCellDef="let element"> {{element.idPhieuMuon}} </td>
+              <ng-container matColumnDef="numberStart">
+                <th mat-header-cell *matHeaderCellDef> Tiết bắt đầu </th>
+                <td mat-cell *matCellDef="let element"> {{element.TietBD}} </td>
               </ng-container>
-  
+              
+              <ng-container matColumnDef="numberEnd">
+                <th mat-header-cell *matHeaderCellDef> Tiết kết thúc </th>
+                <td mat-cell *matCellDef="let element"> {{element.TietKT}} </td>
+              </ng-container>
+
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>

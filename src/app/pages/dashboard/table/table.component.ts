@@ -1,11 +1,11 @@
 import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NbToastrService } from '@nebular/theme';
 import { DeviceData } from '../../../@core/data/device';
+import { AddComponent } from '../addmodal/add.component';
 
-const ELEMENT_DATA = [{'TenTB': 'Máy chủ 1', 'TenLoaiTB': 'Máy chủ', 'HanTra': '2022-04-08', 'idPhieuMuon': 1}];
-const ELEMENT_DATA2 = [{'TenTB': 'Máy chủ 1', 'TenLoaiTB': 'Máy chủ', 'HanTra': '2022-04-08', 'idPhieuMuon': 1}];
 
 @Component({
   selector: 'ngx-table',
@@ -14,15 +14,15 @@ const ELEMENT_DATA2 = [{'TenTB': 'Máy chủ 1', 'TenLoaiTB': 'Máy chủ', 'Han
 })
 export class TableComponent implements OnDestroy {
   
-    constructor(private toastrService: NbToastrService, private service: DeviceData) {
+    constructor(private toastrService: NbToastrService, private service: DeviceData, private dialog: MatDialog) {
         this.getData();
         this.getData2();
     }
 
     public show: Boolean = true;
     displayedColumns: string[] = ['seqNo', 'name', 'type', 'date', 'number', 'actions'];
-    dataSource = new MatTableDataSource(ELEMENT_DATA);
-    dataSource2 = new MatTableDataSource(ELEMENT_DATA2);
+    dataSource = new MatTableDataSource();
+    dataSource2 = new MatTableDataSource();
 
     pageNo = 0;
     pageSize = 20;
@@ -40,23 +40,18 @@ export class TableComponent implements OnDestroy {
         this.dataSource2.paginator = this.paginator2;
     }
 
+    openModalMuonThietBi() {
+      const dialogRef = this.dialog.open(AddComponent);
+      dialogRef.afterClosed().subscribe(result => {
+        if (result == true) {
+          this.getData();
+        }
+      });
+    }
+    
     pageEvents(event: any) {
         this.pageNo = event.pageIndex;
         this.pageSize = event.pageSize;
-    
-        // this.service.getBlackList(this.pageNo + 1, this.pageSize)
-        //   .subscribe((response: any) => {
-        //     if (response['status'] == true && response['code'] == 200) {
-        //       this.toastrService.show('Lấy dữ liệu CNC thành công', 'Thành công', { status: 'success' });
-        //       if (response['data']['items'].length > 0) {
-        //         this.dataSource = new MatTableDataSource(response['data']['items']);
-        //       }
-        //     } else {
-        //       this.toastrService.show('Lấy dữ liệu CNC không thành công', 'Lỗi', { status: 'danger' });
-        //     }
-        //   },
-        //     error => this.toastrService.show('Lấy dữ liệu CNC không thành công', 'Lỗi', { status: 'danger' })
-        // )
     }
 
     pageEvents2(event: any) {
@@ -100,6 +95,24 @@ export class TableComponent implements OnDestroy {
       filterValue = filterValue.toLowerCase();
       this.dataSource2.filter = filterValue;
     }
+
+    onDelete(id, idDevice) {
+      console.log(idDevice);
+      if (window.confirm("Bạn có chắc chắn trả thiết bị này không?")) {
+        this.service.deleteSapToiHan(id, idDevice)
+        .subscribe(response => {
+          console.log('Deleted');
+          this.toastrService.show('Trả thành công', 'Thành công', { status: 'success' });  
+          this.getData();      
+          this.getData2();  
+        },
+          error => this.toastrService.show('Trả không thành công', 'Lỗi', { status: 'danger' })
+        )   
+      } else {
+        console.log('Canceled');
+      }
+    }
+
     ngOnDestroy(): void {
         
     }

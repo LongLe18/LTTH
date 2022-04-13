@@ -16,12 +16,16 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field'; 
 import { MatInputModule}  from '@angular/material/input';
 
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+
 import { ThemeModule } from '../../@theme/theme.module';
 import { DashboardComponent } from './dashboard.component';
 import { FormsModule } from '@angular/forms';
 import { TableComponent } from './table/table.component';
 import { SumCardComponent } from './sumcard/sumcard.component';
 import { SumCard2Component } from './sumcarddate/sumcard.component';
+import { AddComponent } from './addmodal/add.component';
 
 @NgModule({
   imports: [
@@ -42,12 +46,15 @@ import { SumCard2Component } from './sumcarddate/sumcard.component';
     MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
+    MatDialogModule,
+    MatButtonModule,
   ],
   declarations: [
     DashboardComponent,
     TableComponent,
     SumCardComponent,
     SumCard2Component,
+    AddComponent,
   ],
 })
 export class DashboardModule { }

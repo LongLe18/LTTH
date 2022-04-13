@@ -4,8 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NbToastrService } from '@nebular/theme';
 import { DeviceData } from '../../../@core/data/device';
 
-const ELEMENT_DATA = [{'TenTB': 'Máy chủ 1', 'TenLoaiTB': 'Máy chủ', 'HanTra': '2022-04-08', 'idPhieuMuon': 1}];
-const ELEMENT_DATA2 = [{'TenTB': 'Máy chủ 1', 'TenLoaiTB': 'Máy chủ', 'HanTra': '2022-04-08', 'idPhieuMuon': 1}];
+const ELEMENT_DATA = [{"idPhieu":1,"tenMonHoc":"Lập trình tích hợp","tenBaiTN":"Bai thi nghiem 1","tenGV":"Nguyễn Thị Hiề"}];
 
 @Component({
   selector: 'ngx-table3',
@@ -15,29 +14,28 @@ const ELEMENT_DATA2 = [{'TenTB': 'Máy chủ 1', 'TenLoaiTB': 'Máy chủ', 'Han
 export class Table3Component implements OnDestroy {
   
     constructor(private toastrService: NbToastrService, private service: DeviceData) {
-        this.getData();
-        this.getData2();
+      this.getTeacher();
     }
 
     public show: Boolean = true;
-    displayedColumns: string[] = ['seqNo', 'name', 'type', 'date', 'number'];
+    displayedColumns: string[] = ['seqNo', 'namesubject', 'nameobject', 'namegv'];
     dataSource = new MatTableDataSource(ELEMENT_DATA);
-    dataSource2 = new MatTableDataSource(ELEMENT_DATA2);
 
     pageNo = 0;
     pageSize = 20;
     listLength; 
 
-    pageNo2 = 0;
-    pageSize2 = 20;
-    listLength2; 
+    nameTeacher;
+    listTeacher;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild(MatPaginator) paginator2: MatPaginator;
+
+    getTeacher() {
+      this.service.getTeachers().subscribe(res => this.listTeacher = res['data'])
+    }
 
     ngAfterViewInit() {
         this.dataSource.paginator = this.paginator;
-        this.dataSource2.paginator = this.paginator2;
     }
 
     pageEvents(event: any) {
@@ -59,33 +57,16 @@ export class Table3Component implements OnDestroy {
         // )
     }
 
-    pageEvents2(event: any) {
-      this.pageNo2 = event.pageIndex;
-      this.pageSize2 = event.pageSize;
-    }
-
-    getData2() {
-      this.service.getDevicesOverDate()
-        .subscribe((response: any) => {
-          if (response['data'].length > 0) {
-              this.dataSource2 = new MatTableDataSource(response['data']);
-          }
-          this.dataSource2.paginator = this.paginator2;
-        },
-          error => this.toastrService.show(`Lấy danh sách thiết bị không thành công: ${error}`, 'Lỗi', { status: 'danger' })
-        )
-  }
 
     getData() {
-        this.service.getDevicesDate()
+        this.service.getExperiment(this.nameTeacher)
           .subscribe((response: any) => {
             if (response['data'].length > 0) {
                 this.dataSource = new MatTableDataSource(response['data']);
             }
             this.dataSource.paginator = this.paginator;
-            this.toastrService.show('Lấy danh sách thiết bị thành công', 'Thành công', { status: 'success' })
           },
-            error => this.toastrService.show(`Lấy danh sách thiết bị không thành công: ${error}`, 'Lỗi', { status: 'danger' })
+            error => this.toastrService.show(`Báo cáo không thành công: ${error}`, 'Lỗi', { status: 'danger' })
           )
     }
 
@@ -95,11 +76,6 @@ export class Table3Component implements OnDestroy {
         this.dataSource.filter = filterValue;
     }
 
-    applyFilter2(filterValue: string) {
-      filterValue = filterValue.trim();
-      filterValue = filterValue.toLowerCase();
-      this.dataSource2.filter = filterValue;
-    }
     ngOnDestroy(): void {
         
     }
